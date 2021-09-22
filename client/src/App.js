@@ -2,7 +2,9 @@ import './style.scss';
 
 function App() {
   return (
-    <div>Nike</div>
+    <div>
+      <img src='/assets/jordan.svg' alt="Site Logo" height="100" width="100"/>
+    </div>
   );
 }
 
