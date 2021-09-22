@@ -5,13 +5,20 @@ const app = express()
 const cors = require('cors')
 require('dotenv').config()
 
-const PORT = process.env.port || 8888
+const PORT = process.env.PORT || 8888
 const sneakerRouter = require('./routes/sneakers')
+const saveSneakersRouter = require('./routes/saveSneakersRouter')
 const database = require('./database/connection')
 
 app.use(cors())
 app.use(express.json())
-app.use(sneakerRouter)
+app.use('/sneakers', sneakerRouter)
+app.use('/save-sneakers', saveSneakersRouter)
+
+app.get('/', (req, res) => {
+  getSneakersFromBrand('Jordan')
+  res.json('hello wrold')
+})
 
 
 app.listen(PORT, () => {

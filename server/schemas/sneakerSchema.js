@@ -1,6 +1,6 @@
 const mongoose = require('mongoose')
 
-const sneakerSchema = new Schema(
+const sneakerSchema = new mongoose.Schema(
   {
     sneakerID: {type: String, required: true},
     brand: {type: String, required: true},
@@ -22,6 +22,4 @@ const sneakerSchema = new Schema(
   }
 )
 
-const Sneaker = mongoose.model('Sneaker', sneakerSchema)
-
-module.exports = Sneaker;
+module.exports = sneakerSchema;
