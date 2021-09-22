@@ -1,4 +1,5 @@
 const axios = require('axios')
+const Sneaker = require('../models/Sneaker')
 
 const sneakers = {}
 

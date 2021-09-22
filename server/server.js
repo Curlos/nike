@@ -20,5 +20,5 @@ app.listen(PORT, () => {
       console.error(err)
     }
   })
-  console.log(`Sneaker server listening on port ${PORT}`)
+  console.log(`Server is listening on port ${PORT}`)
 })
