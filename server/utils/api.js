@@ -1,5 +1,7 @@
 const axios = require('axios')
-const Sneaker = require('../models/Sneaker')
+const mongoose = require('mongoose')
+const database = require('../database/connection')
+const sneakerSchema = require('../schemas/sneakerSchema')
 
 const sneakers = {}
 
@@ -34,11 +36,43 @@ const getSneakersFromBrand = async (brand) => {
       'x-rapidapi-key': '4a1ae12979msh723335e2f4d235ep12496ejsn5cc07d412b1c'
     }
   }
+
+  const Sneaker = mongoose.model('Sneaker', sneakerSchema, brand)
   
   try {
     const response = await axios.request(options)
-    console.log(JSON.stringify(response.data, null, 4))
-    return response.data
+    const brandSneakers = response.data.results
+
+    brandSneakers.forEach(async (sneaker) => {
+      const {id, brand, colorway, gender, name, releaseDate, retailPrice, shoe, styleId, title, year, media} = sneaker
+
+      const newSneaker = Sneaker(
+        {
+          sneakerID: id,
+          brand: brand,
+          colorway: colorway,
+          gender: gender,
+          name: name,
+          releaseDate: releaseDate,
+          retailPrice: retailPrice,
+          shoe: shoe,
+          styleId: styleId,
+          title: title,
+          year: year,
+          media: {
+            imageUrl: media.imageUrl,
+            smallImageUrl: media.smallImageUrl,
+            thumbUrl: media.thumbUrl,
+          },
+      })
+
+      await newSneaker.save((err, result) => {
+        if (err) return console.error(err)
+        console.log(result.title + " saved to sneaker collection")
+      })
+    })
+
+    return response.data.results
   } catch (err) {
     console.error(err)
   }
@@ -46,27 +80,27 @@ const getSneakersFromBrand = async (brand) => {
 
 const getSneakersFromAllBrands = async () => {
   const allBrands = await getAllBrands()
-  await timer(2000)
 
   for (let brand of allBrands) {
     if (brand === 'AIR JORDAN') {
+      console.log(`Getting sneakers from '${brand}'`)
       const brandSneakers = await getSneakersFromBrand('Jordan')
       sneakers[brand] = brandSneakers
-      console.log(brand)
-      console.log('---')
     } else {
+      console.log(`Getting sneakers from '${brand}'`)
       const brandSneakers = await getSneakersFromBrand(brand)
       sneakers[brand] = brandSneakers
-      console.log(brand)
-      console.log('---')
     }
 
     await timer(2000)
   }
 
   console.log(sneakers)
+  console.log('All sneakers have been retrieved!')
 }
 
-// getSneakersFromAllBrands()
-
-getSneakersFromBrand('Jordan')
+module.exports = {
+  getAllBrands,
+  getSneakersFromBrand,
+  getSneakersFromAllBrands,
+}
