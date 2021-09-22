@@ -3,7 +3,7 @@ const express = require('express')
 const router = express.Router()
 
 const database = require('../database/connection')
-const { getSneakersFromBrand, getSneakersFromAllBrands } = require('../utils/api')
+const { getSneakersFromBrand, getSneakersFromAllBrands } = require('../utils/sneakerApi')
 
 router.get('/', (req, res) => {
   getSneakersFromBrand('Jordan')
