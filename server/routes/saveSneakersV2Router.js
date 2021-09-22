@@ -3,7 +3,6 @@ const { route } = require('express/lib/router')
 
 const router = express.Router()
 
-const database = require('../database/connection')
 const { getAllGenders, getAllBrands, getSneakersFromBrand, getSneakersFromAllBrands, getSneakersFromAllGenders } = require('../utils/sneakerV2_api')
 
 router.get('/all/genders/', async (req, res) => {
@@ -16,12 +15,13 @@ router.get('/all/brands/', async (req, res) => {
   res.json(allBrands)
 })
 
-router.get('/brands/:brand', async (req, res) => {
-  const brandSneakers = await getSneakersFromBrand('Air Jordan')
+router.get('/all/sneakers/brands/:brand', async (req, res) => {
+  const brand = req.params.brand
+  const brandSneakers = await getSneakersFromBrand(brand)
   res.json(brandSneakers)
 })
 
-router.get('/all-sneakers/brand', (req, res) => {
+router.get('/all-sneakers/brands', (req, res) => {
   const allSneakers = getSneakersFromAllBrands()
 
   res.json(allSneakers)
