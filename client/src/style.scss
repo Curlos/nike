@@ -4,3 +4,33 @@ $font-stack: Gothic A1, sans-serif;
 body {
   font-family: $font-stack;
 }
+
+.navbar {
+
+  a {
+    text-decoration: none;
+    color: black;
+  
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+
+  ul {
+    display: flex;
+    justify-content: space-between;
+    list-style-type: none; /* Remove bullets */
+    padding: 0; /* Remove padding */
+    margin: 0; /* Remove margins */
+    width: 100%;
+  }
+
+  li {
+    margin: 10px;
+  }
+
+  .navRight {
+    display: flex;
+    float: right;
+  }
+}

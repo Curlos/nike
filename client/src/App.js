@@ -1,9 +1,11 @@
+import React, { useState } from 'react-router-dom'
+import Navbar from './components/Navbar'
 import './style.scss';
 
 function App() {
   return (
     <div>
-      <img src='/assets/jordan.svg' alt="Site Logo" height="100" width="100"/>
+      <Navbar />
     </div>
   );
 }
