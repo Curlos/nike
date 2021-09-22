@@ -52,8 +52,21 @@ router.get('/:brand', async (req, res) => {
   // const Sneaker = mongoose.model('Sneaker', sneakerSchema, brand)
   const Sneaker = mongoose.model('Sneaker', sneakerSchema, brand)
 
-  const jordanSneakers = await Sneaker.find({})
-  res.json(jordanSneakers)
+  const brandSneakers = await Sneaker.find({})
+  res.json(brandSneakers)
+})
+
+router.post('/:brand/filter', async (req, res) => {
+  console.log(req.body)
+  const filters = req.body
+
+  const brand = req.params.brand.toUpperCase()
+  console.log(`Getting all '${brand}' brand sneakers from database...`)
+  const Sneaker = mongoose.model('Sneaker', sneakerSchema, brand)
+
+  const brandSneakers = await Sneaker.find({ gender: "woman" })
+  console.log(brandSneakers.length)
+  res.json(brandSneakers)
 })
 
 
