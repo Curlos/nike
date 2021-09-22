@@ -7,8 +7,6 @@ const { getSneakersFromBrand, getSneakersFromAllBrands } = require('../utils/api
 
 router.get('/', (req, res) => {
   getSneakersFromBrand('Jordan')
-
-  res.send('Hello world')
 })
 
 router.get('/all-sneakers', (req, res) => {
