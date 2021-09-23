@@ -8,11 +8,13 @@ import {
 import Navbar from './components/Navbar'
 import Shoes from './components/Shoes'
 import FullShoe from './components/FullShoe'
+import Brands from './components/Brands'
 import './style.scss';
 
-function App() {
+const App = () => {
 
   const [selectedShoe, setSelectedShoe] = useState({})
+  const [selectedBrand, setSelectedBrand] = useState('')
 
   const handleSelectShoe = (shoeObj) => {
     setSelectedShoe(shoeObj)
@@ -39,9 +41,11 @@ function App() {
           <Route path="/kids" exact>
             Kids
           </Route>
+
           <Route path="/brands" exact>
-            Explore Brands
+            <Brands />
           </Route>
+          
           <Route path="/brands/:brand" exact>
             <Shoes handleSelectShoe={handleSelectShoe}/>
           </Route>
