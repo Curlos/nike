@@ -6,6 +6,7 @@ const router = express.Router()
 
 const ALL_BRANDS = [
   "AIR JORDAN",
+  "ADIDAS",
   "ALEXANDER MCQUEEN",
   "ASICS",
   "BALENCIAGA",
