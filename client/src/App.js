@@ -46,8 +46,8 @@ function App() {
             <Shoes handleSelectShoe={handleSelectShoe}/>
           </Route>
 
-          <Route path="/shoe/:id" exact>
-            <FullShoe shoeObj={selectedShoe}/>
+          <Route path="/shoe/:brand/:sneakerID" exact>
+            <FullShoe shoeObj={selectedShoe.sneakerID}/>
           </Route>
 
           <Route path="/">
