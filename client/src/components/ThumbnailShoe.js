@@ -7,10 +7,11 @@ const ThumbnailShoe = ({ shoeObj, handleSelectShoe }) => {
     handleSelectShoe(shoeObj)
   }
   return (
-    <div class="singleShoeContainer">
+    <div class="thumbnailShoe">
       <Link to={`/shoe/${shoeObj.brand}/${shoeObj.sneakerID}`} onClick={handleClick}>
         <img src={shoeObj.image.thumbnail} alt={shoeObj.name} />
-        <div>{shoeObj.name}</div> 
+        <div className="name">{shoeObj.name}</div>
+        <div className="price">{shoeObj.retailPrice ? '$' + shoeObj.retailPrice : 'Unknown Price'}</div>
       </Link>
     </div>
   )

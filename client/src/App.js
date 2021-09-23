@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import {
   BrowserRouter as Router,
   Switch,
@@ -9,15 +9,25 @@ import Navbar from './components/Navbar'
 import Shoes from './components/Shoes'
 import FullShoe from './components/FullShoe'
 import Brands from './components/Brands'
+import SearchBar from './components/SearchBar'
+import axios from 'axios'
 import './style.scss';
 
 const App = () => {
 
   const [selectedShoe, setSelectedShoe] = useState({})
   const [selectedBrand, setSelectedBrand] = useState('')
+  const [finalizedSearchQuery, setFinalizedSearchQuery] = useState('')
+  const [filters, setFilters] = useState({})
 
   const handleSelectShoe = (shoeObj) => {
     setSelectedShoe(shoeObj)
+  }
+
+  const handleSearch = (searchQuery) => {
+    console.log(searchQuery)
+    setFinalizedSearchQuery(searchQuery)
+    setFilters({...filters, name: finalizedSearchQuery})
   }
 
   return (
@@ -47,7 +57,8 @@ const App = () => {
           </Route>
           
           <Route path="/brands/:brand" exact>
-            <Shoes handleSelectShoe={handleSelectShoe}/>
+            <SearchBar handleSearch={handleSearch}/>
+            <Shoes finalizedSearchQuery={finalizedSearchQuery} handleSelectShoe={handleSelectShoe}/>
           </Route>
 
           <Route path="/shoe/:brand/:sneakerID" exact>

@@ -1,10 +1,9 @@
 import React, { useState, useEffect } from 'react'
 import { useParams } from "react-router-dom";
 import ThumbnailShoe from './ThumbnailShoe'
-
 import axios from 'axios'
 
-const Shoes = ({ handleSelectShoe }) => {
+const Shoes = ({ finalizedSearchQuery, handleSelectShoe }) => {
 
   const [shoes, setShoes] = useState([])
   const [isLoading, setIsLoading] = useState(true)
@@ -13,16 +12,26 @@ const Shoes = ({ handleSelectShoe }) => {
   useEffect(() => {
 
     const fetchFromServer = async () => {
-      const response = await axios.get(`http://localhost:3001/sneakers/brands/${brand.toUpperCase()}`)
-      const data = response.data
+      if (finalizedSearchQuery === '') {
+        const response = await axios.get(`http://localhost:3001/sneakers/brands/${brand.toUpperCase()}`)
+        const data = response.data
 
-      console.log(data)
+        console.log(data)
 
-      setShoes(data)
-      setIsLoading(false)
+        setShoes(data)
+        setIsLoading(false) 
+      } else {
+        const response = await axios.post(`http://localhost:3001/sneakers/brands/${brand.toUpperCase()}`)
+        const data = response.data
+
+        console.log(data)
+
+        setShoes(data)
+        setIsLoading(false) 
+      }
     }
     fetchFromServer()
-  }, [brand])
+  }, [finalizedSearchQuery])
 
 
   return (

@@ -49,15 +49,16 @@ body {
   }
 }
 
-.singleShoeContainer {
+.thumbnailShoe {
   text-align: center;
   padding: 20px;
-  width: 375px;
+  width: 25%;
   margin: 20px;
 
   img {
     background-color:#F7F6F6;
   }
+
 }
 
 .fullSizeShoeContainer {
@@ -121,6 +122,29 @@ body {
         width: 125px;
         margin: 30px;
       }
+    }
+  }
+}
+
+.searchBarContainer {
+
+  display: flex;
+  justify-content: center;
+
+  .searchInput {
+    border: 2px solid lightgray;
+    padding: 5px;
+    font-size: 19px;
+    border-radius: 5px;
+
+
+    -webkit-appearance: none;
+    -ms-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+
+    &:focus {
+      outline: none;
     }
   }
 }
