@@ -50,20 +50,53 @@ body {
 
 .singleShoeContainer {
   text-align: center;
-  background-color:#F7F6F6;
   padding: 20px;
   width: 375px;
   margin: 20px;
+
+  img {
+    background-color:#F7F6F6;
+  }
 }
 
 .fullSizeShoeContainer {
 
+  display: flex;
+  justify-content: center;
+  margin: 20px;
+
   .shoeImage {
-    width: 600px;
-    height: 600px;
+    height: 800px;
+    border: 2px solid lightgray;
   }
 
   .shoeName {
+    font-size: 30px;
+  }
+
+  .shoeDetails {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: space-around;
     font-size: 20px;
+    height: 800px;
+    text-align: center;
+    padding: 0px 50px 0px 50px;
+    border: 2px solid lightgray;
+    border-left: 0px;
+  }
+
+  .siteLinks {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    .linkLogo {
+      align-items: center;
+      border-radius: 10px;
+      width: 120px;
+      border: 1px solid black;
+      margin: 10px;
+    }
   }
 }
