@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Gothic+A1:wght@500&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Gothic+A1:wght@100;400&display=swap');
 
 $font-stack: Gothic A1, sans-serif;
 
@@ -67,7 +67,8 @@ body {
 
   .shoeImage {
     height: 800px;
-    border: 2px solid lightgray;
+    border: 1px solid lightgray;
+    border-radius: 10px;
   }
 
   .shoeName {
@@ -83,7 +84,8 @@ body {
     height: 800px;
     text-align: center;
     padding: 0px 50px 0px 50px;
-    border: 2px solid lightgray;
+    border: 1px solid lightgray;
+    border-radius: 10px;
     border-left: 0px;
   }
 
@@ -93,9 +95,7 @@ body {
     align-items: center;
     .linkLogo {
       align-items: center;
-      border-radius: 10px;
       width: 120px;
-      border: 1px solid black;
       margin: 10px;
     }
   }

@@ -34,14 +34,40 @@ const FullShoe = () => {
             <div className="shoeName">
               {shoe.name}
             </div>
+
+            <div>
+              Price: ${shoe.retailPrice}
+            </div>
+
             {shoe.story ? (
               <div className="shoeStory">
                 {shoe.story}
               </div>
             ) : null}
 
+            <div>
+              Brand: {shoe.brand}
+            </div>
+
+            <div>
+              Sku: {shoe.sku}
+            </div>
+
+            <div>
+              Release Date: {shoe.releaseDate}
+            </div>
+
+            <div>
+              Release Year: {shoe.releaseYear}
+            </div>
+
+            <div>
+              Colorway: {shoe.colorway}
+            </div>
+
+
+
             <div className="siteLinks">
-              <span>Buy from: </span>
               {shoe.links.flightClub !== '' ? (
                 <SiteLink link={shoe.links.flightClub} imgSrc="/assets/flight_club.png" />
               ) : null}
