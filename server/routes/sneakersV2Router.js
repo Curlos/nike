@@ -133,8 +133,12 @@ router.post('/all/filter', async (req, res) => {
 
 router.post('/brands/:brand/filter', async (req, res) => {
   console.log(req.body)
-  const filters = req.body
-  console.log(typeof filters)
+  let filters = req.body
+
+  if (Object.keys(filters).includes('name')) {
+    const regex = new RegExp(filters.name)
+    filters = {...filters, name: { $regex: regex, $options: 'i'}}
+  }
 
   const brand = req.params.brand.toUpperCase()
   console.log(`Getting all '${brand}' brand sneakers from database...`)

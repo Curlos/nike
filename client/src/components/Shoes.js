@@ -3,7 +3,7 @@ import { useParams } from "react-router-dom";
 import ThumbnailShoe from './ThumbnailShoe'
 import axios from 'axios'
 
-const Shoes = ({ finalizedSearchQuery, handleSelectShoe }) => {
+const Shoes = ({ finalizedSearchQuery, resetFinalizedSearchQuery, handleSelectShoe }) => {
 
   const [shoes, setShoes] = useState([])
   const [isLoading, setIsLoading] = useState(true)
@@ -21,17 +21,21 @@ const Shoes = ({ finalizedSearchQuery, handleSelectShoe }) => {
         setShoes(data)
         setIsLoading(false) 
       } else {
-        const response = await axios.post(`http://localhost:3001/sneakers/brands/${brand.toUpperCase()}`)
+        const body = {
+          "name": finalizedSearchQuery
+        }
+        const response = await axios.post(`http://localhost:3001/sneakers/brands/${brand.toUpperCase()}/filter`, body)
         const data = response.data
 
         console.log(data)
 
         setShoes(data)
-        setIsLoading(false) 
+        setIsLoading(false)
+        // resetFinalizedSearchQuery() 
       }
     }
     fetchFromServer()
-  }, [finalizedSearchQuery])
+  }, [finalizedSearchQuery, brand])
 
 
   return (

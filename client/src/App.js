@@ -30,6 +30,10 @@ const App = () => {
     setFilters({...filters, name: finalizedSearchQuery})
   }
 
+  const resetFinalizedSearchQuery = () => {
+    setFinalizedSearchQuery('')
+  }
+
   return (
 
     <Router>
@@ -58,7 +62,7 @@ const App = () => {
           
           <Route path="/brands/:brand" exact>
             <SearchBar handleSearch={handleSearch}/>
-            <Shoes finalizedSearchQuery={finalizedSearchQuery} handleSelectShoe={handleSelectShoe}/>
+            <Shoes finalizedSearchQuery={finalizedSearchQuery} resetFinalizedSearchQuery={resetFinalizedSearchQuery} handleSelectShoe={handleSelectShoe}/>
           </Route>
 
           <Route path="/shoe/:brand/:sneakerID" exact>
