@@ -85,8 +85,8 @@ router.get('/all/genders', async (req, res) => {
 
 
 
-router.get('/brand/:brand', async (req, res) => {
-  const brand = req.params.brand
+router.get('/brands/:brand', async (req, res) => {
+  const brand = req.params.brand.toUpperCase()
   console.log(`Getting all '${brand}' brand sneakers from database...`)
   const Sneaker = mongoose.model('Sneaker', sneakerSchema, brand)
 

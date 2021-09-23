@@ -1,5 +1,7 @@
-@import url('https://fonts.googleapis.com/css2?family=Gothic+A1&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Gothic+A1:wght@500&display=swap');
+
 $font-stack: Gothic A1, sans-serif;
+
 
 body {
   font-family: $font-stack;
@@ -32,5 +34,36 @@ body {
   .navRight {
     display: flex;
     float: right;
+  }
+}
+
+.shoesContainer {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+
+  a {
+    text-decoration: none;
+    color: black;
+  }
+}
+
+.singleShoeContainer {
+  text-align: center;
+  background-color:#F7F6F6;
+  padding: 20px;
+  width: 375px;
+  margin: 20px;
+}
+
+.fullSizeShoeContainer {
+
+  .shoeImage {
+    width: 600px;
+    height: 600px;
+  }
+
+  .shoeName {
+    font-size: 20px;
   }
 }
