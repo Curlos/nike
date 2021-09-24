@@ -175,26 +175,77 @@ body {
   }
 }
 
-.searchBarContainer {
-
+.searchAndFilterElems {
   display: flex;
-  justify-content: center;
-
-  .searchInput {
-    border: 2px solid lightgray;
-    padding: 5px;
-    font-size: 19px;
-    border-radius: 5px;
 
 
-    -webkit-appearance: none;
-    -ms-appearance: none;
-    -moz-appearance: none;
-    appearance: none;
+  .searchBarContainer {
+    display: flex;
+    justify-content: center;
+  
+    .searchInput {
+      border: 2px solid lightgray;
+      padding: 5px;
+      font-size: 19px;
+      border-radius: 20px;
+  
+  
+      -webkit-appearance: none;
+      -ms-appearance: none;
+      -moz-appearance: none;
+      appearance: none;
+  
+      &:focus {
+        outline: none;
+      }
+    }
 
-    &:focus {
-      outline: none;
+    .searchButton {
+      border-radius: 20px;
+      color: red;
     }
   }
+
+  /* The container <div> - needed to position the dropdown content */
+  .dropdown {
+    position: relative;
+    display: inline-block;
+
+    /* Dropdown Button */
+    .dropbtn {
+      background-color: #f1f1f1;
+      color: black;
+      padding: 16px;
+      font-size: 16px;
+      border: none;
+    }
+
+
+    /* Dropdown Content (Hidden by Default) */
+    .dropdown-content {
+      display: none;
+      position: absolute;
+      background-color: #f1f1f1;
+      min-width: 160px;
+      box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+      z-index: 1;
+
+      a {
+        color: black;
+        padding: 12px 16px;
+        text-decoration: none;
+        display: block;
+
+        &:hover {background-color: #ddd;}
+      }
+    }
+
+
+    /* Show the dropdown menu on hover */
+    &:hover {
+      .dropdown-content {display: block;}
+    }
+  }
+
 }
 
