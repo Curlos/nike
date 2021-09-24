@@ -1,11 +1,14 @@
 import React, { useState, useEffect } from 'react'
 import ThumbnailShoe from './ThumbnailShoe'
 import Sidebar from './Sidebar'
+import SearchBar from './SearchBar'
+import Dropdown from './Dropdown'
 import axios from 'axios'
 
-const Shoes = ({ brands, finalizedSearchQuery, resetFinalizedSearchQuery, handleSelectShoe, handleSelectBrand, lastFilterChange }) => {
+const Shoes = ({ brands, handleSearch, finalizedSearchQuery, resetFinalizedSearchQuery, handleSelectShoe, handleSelectBrand, lastFilterChange }) => {
 
   const [shoes, setShoes] = useState([])
+  const [allShoes, setAllShoes] = useState([])
   const [isLoading, setIsLoading] = useState(true)
 
   console.log(shoes)
@@ -30,18 +33,21 @@ const Shoes = ({ brands, finalizedSearchQuery, resetFinalizedSearchQuery, handle
           const data = response.data
           console.log(data)
           const newShoes = [...shoes]
+          const newAllShoes = [...shoes]
           newShoes.push(...data)
+          newAllShoes.push(...data)
           // sortShoesByRelease(newShoes)
           sortShoesFromLowestToHighestPrice(newShoes)
 
           setShoes(newShoes)
+          setAllShoes(newAllShoes)
           setIsLoading(false) 
         } else {
           console.log('unchecked')
           const newShoes = filterOutShoes({brand: lastFilterChange.name})
-          // sortShoesByRelease(newShoes)
           sortShoesFromLowestToHighestPrice(newShoes)
           setShoes(newShoes)
+          setAllShoes(newShoes)
         }
       } else {
         const filters = {
@@ -59,7 +65,7 @@ const Shoes = ({ brands, finalizedSearchQuery, resetFinalizedSearchQuery, handle
   }, [finalizedSearchQuery, brands])
 
   const filterOutShoes = (filters) => {
-    const newShoes = shoes.filter((shoe) => {
+    const newShoes = allShoes.filter((shoe) => {
       for (let prop of Object.keys(filters)) {
         console.log(`${shoe[prop]} === ${filters[prop]} ${shoe[prop] === filters[prop]}`)
         if (shoe[prop].toLowerCase() === filters[prop].toLowerCase()) {
@@ -73,12 +79,15 @@ const Shoes = ({ brands, finalizedSearchQuery, resetFinalizedSearchQuery, handle
   }
 
   const filterShoes = (filters) => {
-    const newShoes = shoes.filter((shoe) => {
+    console.log(filters)
+    const newShoes = allShoes.filter((shoe) => {
       for (let prop of Object.keys(filters)) {
         console.log(`${shoe[prop]} === ${filters[prop]} ${shoe[prop] === filters[prop]}`)
-        if (prop === 'name' && !shoe[prop].includes(filters[prop])) {
+        
+        if (prop === 'name' && shoe[prop].toLowerCase().includes(filters[prop].toLowerCase()) === false) {
+          console.log()
           return false
-        } else if (shoe[prop].toLowerCase() !== filters[prop].toLowerCase()) {
+        } else if (prop !== 'name' && shoe[prop].toLowerCase() !== filters[prop].toLowerCase()) {
           return false
         }
       }
@@ -113,19 +122,26 @@ const Shoes = ({ brands, finalizedSearchQuery, resetFinalizedSearchQuery, handle
 
   return (
 
-    <div className="shoesPage">
-      <Sidebar handleSelectBrand={handleSelectBrand}/>
+    <div>
+      <div className="searchAndFilterElems">
+        <SearchBar handleSearch={handleSearch}/>
+        <Dropdown />
+      </div>
 
-      <div className="shoesContainer">
-        {isLoading ? (
-          <div>Loading...</div>
-        ) : (
-          shoes.map((shoeObj) => {
-          return (
-            <ThumbnailShoe key={shoeObj.sneakerID} shoeObj={shoeObj} handleSelectShoe={handleSelectShoe}/>
-          )
-          })
-        )}
+      <div className="shoesPage">
+        <Sidebar handleSelectBrand={handleSelectBrand}/>
+
+        <div className="shoesContainer">
+          {isLoading ? (
+            <div>Loading...</div>
+          ) : (
+            shoes.map((shoeObj) => {
+            return (
+              <ThumbnailShoe key={shoeObj.sneakerID} shoeObj={shoeObj} handleSelectShoe={handleSelectShoe}/>
+            )
+            })
+          )}
+        </div>
       </div>
     </div>
   )
