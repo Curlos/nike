@@ -1,6 +1,5 @@
-import React, { useState } from 'react'
-import { Link, useParams } from "react-router-dom";
-import Brand from './Brand'
+import React, { } from 'react'
+import { Link } from "react-router-dom";
 
 const ALL_BRANDS = [
   "AIR JORDAN",

@@ -139,6 +139,11 @@ body {
     border: 1px solid lightgray;
     border-radius: 10px;
     border-left: 0px;
+
+    .shoePrice {
+      font-size: 22px;
+      color: red;
+    }
   }
 
   .siteLinks {
@@ -180,7 +185,7 @@ body {
 .searchAndFilterElems {
   display: flex;
   justify-content: flex-end;
-  margin-right: 100px;
+  margin-right: 70px;
 
 
   .searchBarContainer {

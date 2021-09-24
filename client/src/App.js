@@ -1,16 +1,13 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
 import {
   BrowserRouter as Router,
   Switch,
   Route,
-  Link
 } from "react-router-dom";
 import Navbar from './components/Navbar'
 import Shoes from './components/Shoes'
 import FullShoe from './components/FullShoe'
 import Brands from './components/Brands'
-import SearchBar from './components/SearchBar'
-import axios from 'axios'
 import './style.scss';
 
 const App = () => {

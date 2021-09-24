@@ -18,11 +18,13 @@ const Shoes = ({ brands, handleSearch, finalizedSearchQuery, resetFinalizedSearc
   useEffect(() => {
     // Every time the brand name changes, reset the search query
     resetFinalizedSearchQuery()
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [brands])
 
   useEffect(() => {
     let newShoes = [...shoes]
     setShoes(sortedShoes(newShoes))
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [sortType])
 
   useEffect(() => {
@@ -64,6 +66,7 @@ const Shoes = ({ brands, handleSearch, finalizedSearchQuery, resetFinalizedSearc
       }
     }
     fetchFromServer()
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [finalizedSearchQuery, brands])
 
   const sortedShoes = (shoesToSort) => {

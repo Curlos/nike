@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { Link, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import axios from 'axios'
 import SiteLink from './SiteLink'
 
@@ -18,6 +18,7 @@ const FullShoe = () => {
         setIsLoading(false)
     })
 
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [sneakerID])
 
   if (!isLoading) {
@@ -35,7 +36,7 @@ const FullShoe = () => {
               {shoe.name}
             </div>
 
-            <div>
+            <div className="shoePrice">
               Price: ${shoe.retailPrice}
             </div>
 

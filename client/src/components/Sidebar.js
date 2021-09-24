@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { } from 'react'
 
 const ALL_BRANDS = [
   "AIR JORDAN",
@@ -61,7 +61,7 @@ const Sidebar = ({ handleSelectBrand, brands }) => {
       <div>Brands</div>
       {ALL_BRANDS.map((brand) => {
         return (
-          <a>
+          <a href="/">
             <input type="checkbox" name={titleCase(brand)} onClick={handleClick} value={titleCase(brand)} checked={brands[titleCase(brand)] && brands[titleCase(brand)].checked}/>
             <label for={titleCase(brand)}>{titleCase(brand)}</label>
           </a>
