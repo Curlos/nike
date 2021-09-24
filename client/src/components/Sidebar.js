@@ -44,13 +44,14 @@ const titleCase = (str) => {
   .join(' ')
 }
 
-const Sidebar = ({ handleSelectBrand }) => {
+const Sidebar = ({ handleSelectBrand, brands }) => {
 
 
   const handleClick = (e) => {
     const newBrandName = e.target.value
     const checked = e.target.checked
     const newBrand = {name: newBrandName, checked: checked}
+    console.log(brands)
     handleSelectBrand(newBrand)
   }
 
@@ -61,7 +62,7 @@ const Sidebar = ({ handleSelectBrand }) => {
       {ALL_BRANDS.map((brand) => {
         return (
           <a>
-            <input type="checkbox" name={titleCase(brand)} onClick={handleClick} value={titleCase(brand)}/>
+            <input type="checkbox" name={titleCase(brand)} onClick={handleClick} value={titleCase(brand)} checked={brands[titleCase(brand)] && brands[titleCase(brand)].checked}/>
             <label for={titleCase(brand)}>{titleCase(brand)}</label>
           </a>
         )
