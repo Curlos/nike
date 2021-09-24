@@ -16,11 +16,12 @@ import './style.scss';
 const App = () => {
 
   const [selectedShoe, setSelectedShoe] = useState({})
-  const [selectedBrand, setSelectedBrand] = useState('')
   const [finalizedSearchQuery, setFinalizedSearchQuery] = useState('')
   const [brands, setBrands] = useState({})
   const [lastFilterChange, setLastFilterChange] = useState({})
   const [filters, setFilters] = useState({})
+
+  console.log(filters)
 
   const handleSelectShoe = (shoeObj) => {
     setSelectedShoe(shoeObj)
@@ -70,8 +71,7 @@ const App = () => {
           </Route>
           
           <Route path="/shoes" exact>
-            <SearchBar handleSearch={handleSearch}/>
-            <Shoes brands={brands} finalizedSearchQuery={finalizedSearchQuery} resetFinalizedSearchQuery={resetFinalizedSearchQuery} handleSelectShoe={handleSelectShoe} handleSelectBrand={handleSelectBrand} lastFilterChange={lastFilterChange}/>
+            <Shoes brands={brands} handleSearch={handleSearch} finalizedSearchQuery={finalizedSearchQuery} resetFinalizedSearchQuery={resetFinalizedSearchQuery} handleSelectShoe={handleSelectShoe} handleSelectBrand={handleSelectBrand} lastFilterChange={lastFilterChange}/>
           </Route>
 
           <Route path="/shoe/:brand/:sneakerID" exact>

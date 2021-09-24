@@ -19,7 +19,7 @@ const SearchBar = ({ handleSearch }) => {
   return (
     <form className="searchBarContainer" onSubmit={handleSubmit}>
       <input type="text" className="searchInput" value={searchQuery} onChange={handleChange}/>
-      <input type="submit" value="Search" onClick={handleSubmit}/>
+      <button type="submit" onClick={handleSubmit} className="searchButton">Search</button>
     </form>
   )
 }
