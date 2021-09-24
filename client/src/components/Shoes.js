@@ -5,7 +5,7 @@ import SearchBar from './SearchBar'
 import Dropdown from './Dropdown'
 import axios from 'axios'
 
-const Shoes = ({ brands, handleSearch, finalizedSearchQuery, resetFinalizedSearchQuery, handleSelectShoe, handleSelectBrand, lastFilterChange }) => {
+const Shoes = ({ brands, handleSearch, finalizedSearchQuery, resetFinalizedSearchQuery, handleSelectShoe, handleSelectBrand, lastFilterChange, handleSort, sortType }) => {
 
   const [shoes, setShoes] = useState([])
   const [allShoes, setAllShoes] = useState([])
@@ -19,6 +19,11 @@ const Shoes = ({ brands, handleSearch, finalizedSearchQuery, resetFinalizedSearc
     // Every time the brand name changes, reset the search query
     resetFinalizedSearchQuery()
   }, [brands])
+
+  useEffect(() => {
+    let newShoes = [...shoes]
+    setShoes(sortedShoes(newShoes))
+  }, [sortType])
 
   useEffect(() => {
 
@@ -36,17 +41,14 @@ const Shoes = ({ brands, handleSearch, finalizedSearchQuery, resetFinalizedSearc
           const newAllShoes = [...shoes]
           newShoes.push(...data)
           newAllShoes.push(...data)
-          // sortShoesByRelease(newShoes)
-          sortShoesFromLowestToHighestPrice(newShoes)
 
-          setShoes(newShoes)
+          setShoes(sortedShoes(newShoes))
           setAllShoes(newAllShoes)
           setIsLoading(false) 
         } else {
           console.log('unchecked')
           const newShoes = filterOutShoes({brand: lastFilterChange.name})
-          sortShoesFromLowestToHighestPrice(newShoes)
-          setShoes(newShoes)
+          setShoes(sortedShoes(newShoes))
           setAllShoes(newShoes)
         }
       } else {
@@ -63,6 +65,26 @@ const Shoes = ({ brands, handleSearch, finalizedSearchQuery, resetFinalizedSearc
     }
     fetchFromServer()
   }, [finalizedSearchQuery, brands])
+
+  const sortedShoes = (shoesToSort) => {
+    let newShoes = [...shoesToSort]
+    
+    switch (sortType) {
+      case 'Newest':
+        newShoes = sortShoesByRelease(newShoes)
+        break
+      case 'highestToLowest':
+        newShoes = sortShoesFromHighestToLowestPrice(newShoes)
+        break
+      case 'lowestToHighest':
+        newShoes = sortShoesFromLowestToHighestPrice(newShoes)
+        break
+      default:
+        return
+    }
+
+    return newShoes
+  }
 
   const filterOutShoes = (filters) => {
     const newShoes = allShoes.filter((shoe) => {
@@ -94,8 +116,6 @@ const Shoes = ({ brands, handleSearch, finalizedSearchQuery, resetFinalizedSearc
       return true
     })
 
-    console.log(newShoes)
-
     return newShoes
   }
 
@@ -125,11 +145,11 @@ const Shoes = ({ brands, handleSearch, finalizedSearchQuery, resetFinalizedSearc
     <div>
       <div className="searchAndFilterElems">
         <SearchBar handleSearch={handleSearch}/>
-        <Dropdown />
+        <Dropdown handleSort={handleSort}/>
       </div>
 
       <div className="shoesPage">
-        <Sidebar handleSelectBrand={handleSelectBrand}/>
+        <Sidebar handleSelectBrand={handleSelectBrand} brands={brands}/>
 
         <div className="shoesContainer">
           {isLoading ? (

@@ -1,21 +1,32 @@
 import React, { useState } from 'react'
 
-const Dropdown = () => {
+const Dropdown = ({ handleSort }) => {
 
   const [showDropdown, setShowDropdown] = useState(true)
 
   const toggleDropdown = () => {
     setShowDropdown(!showDropdown)
   }
+  
+  const handleClick = (e) => {
+    const newSortType = e.target.getAttribute('value')
+    handleSort(newSortType)
+  }
 
   return (
     <div class="dropdown">
-      <button className="dropbtn" onClick={toggleDropdown}>Sort by</button>
+      <button className="dropbtn" onClick={toggleDropdown}>
+        Sort By {showDropdown ? (
+          <i class="fas fa-chevron-down"></i>
+        ) : (
+          <i class="fas fa-chevron-up"></i>
+        )}
+      </button>
       {showDropdown ? (
         <div className="dropdown-content">
-          <a href="#">Newest</a>
-          <a href="#">Price: Highest to Lowest</a>
-          <a href="#">Price: Lowest to Highest</a>
+          <div onClick={handleClick} value="Newest">Newest</div>
+          <div onClick={handleClick} value="highestToLowest">Price: Highest to Lowest</div>
+          <div onClick={handleClick} value="lowestToHighest">Price: Lowest to Highest</div>
         </div>
       ) : null}
     </div>

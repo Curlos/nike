@@ -20,6 +20,7 @@ const App = () => {
   const [brands, setBrands] = useState({})
   const [lastFilterChange, setLastFilterChange] = useState({})
   const [filters, setFilters] = useState({})
+  const [sortType, setSortType] = useState('Newest')
 
   console.log(filters)
 
@@ -42,6 +43,11 @@ const App = () => {
 
   const resetFinalizedSearchQuery = () => {
     setFinalizedSearchQuery('')
+  }
+
+  const handleSort = (newSortType) => {
+    console.log(newSortType)
+    setSortType(newSortType)
   }
 
   return (
@@ -71,7 +77,7 @@ const App = () => {
           </Route>
           
           <Route path="/shoes" exact>
-            <Shoes brands={brands} handleSearch={handleSearch} finalizedSearchQuery={finalizedSearchQuery} resetFinalizedSearchQuery={resetFinalizedSearchQuery} handleSelectShoe={handleSelectShoe} handleSelectBrand={handleSelectBrand} lastFilterChange={lastFilterChange}/>
+            <Shoes brands={brands} handleSearch={handleSearch} finalizedSearchQuery={finalizedSearchQuery} resetFinalizedSearchQuery={resetFinalizedSearchQuery} handleSelectShoe={handleSelectShoe} handleSelectBrand={handleSelectBrand} lastFilterChange={lastFilterChange} handleSort={handleSort} sortType={sortType}/>
           </Route>
 
           <Route path="/shoe/:brand/:sneakerID" exact>
