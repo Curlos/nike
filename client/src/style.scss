@@ -6,6 +6,7 @@ $fullShoeContainerHeight: 750px;
 
 body {
   font-family: $font-stack;
+  margin: 0;
 }
 
 .navbar {
@@ -38,27 +39,75 @@ body {
   }
 }
 
-.shoesContainer {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
+.shoesPage {
 
-  a {
-    text-decoration: none;
-    color: black;
-  }
-}
+    /* The side navigation menu */
+  .sidebar {
+    margin: 0;
+    padding: 0;
+    width: 200px;
+    position: fixed;
+    height: 100%;
+    overflow: auto;
 
-.thumbnailShoe {
-  text-align: center;
-  padding: 20px;
-  width: 25%;
-  margin: 20px;
-
-  img {
-    background-color:#F7F6F6;
+    a {
+      display: block;
+      color: black;
+      padding: 4px;
+      text-decoration: none;
+    }
   }
 
+  /* Page content. The value of the margin-left property should match the value of the sidebar's width property */
+  div.content {
+    margin-left: 200px;
+    padding: 1px 16px;
+    height: 1000px;
+  }
+
+  /* On screens that are less than 700px wide, make the sidebar into a topbar */
+  @media screen and (max-width: 700px) {
+    .sidebar {
+      width: 100%;
+      height: auto;
+      position: relative;
+    }
+    .sidebar a {float: left;}
+    div.content {margin-left: 0;}
+  }
+
+  /* On screens that are less than 400px, display the bar vertically, instead of horizontally */
+  @media screen and (max-width: 400px) {
+    .sidebar a {
+      text-align: center;
+      float: none;
+    }
+  }
+
+  
+
+  .shoesContainer {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin-left: 200px;
+  
+    a {
+      text-decoration: none;
+      color: black;
+    }
+  }
+  
+  .thumbnailShoe {
+    display: flex;
+    text-align: center;
+    width: 25%;
+    margin: 20px;
+  
+    img {
+      width: 100%;
+    }
+  }
 }
 
 .fullSizeShoeContainer {
@@ -148,3 +197,4 @@ body {
     }
   }
 }
+

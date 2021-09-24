@@ -18,10 +18,19 @@ const App = () => {
   const [selectedShoe, setSelectedShoe] = useState({})
   const [selectedBrand, setSelectedBrand] = useState('')
   const [finalizedSearchQuery, setFinalizedSearchQuery] = useState('')
+  const [brands, setBrands] = useState({})
+  const [lastFilterChange, setLastFilterChange] = useState({})
   const [filters, setFilters] = useState({})
 
   const handleSelectShoe = (shoeObj) => {
     setSelectedShoe(shoeObj)
+  }
+
+  const handleSelectBrand = (newBrand) => {
+    setBrands({...brands, [newBrand.name]: {...newBrand}})
+    setLastFilterChange({...newBrand})
+    console.log(brands)
+    console.log(newBrand)
   }
 
   const handleSearch = (searchQuery) => {
@@ -60,9 +69,9 @@ const App = () => {
             <Brands />
           </Route>
           
-          <Route path="/brands/:brand" exact>
+          <Route path="/shoes" exact>
             <SearchBar handleSearch={handleSearch}/>
-            <Shoes finalizedSearchQuery={finalizedSearchQuery} resetFinalizedSearchQuery={resetFinalizedSearchQuery} handleSelectShoe={handleSelectShoe}/>
+            <Shoes brands={brands} finalizedSearchQuery={finalizedSearchQuery} resetFinalizedSearchQuery={resetFinalizedSearchQuery} handleSelectShoe={handleSelectShoe} handleSelectBrand={handleSelectBrand} lastFilterChange={lastFilterChange}/>
           </Route>
 
           <Route path="/shoe/:brand/:sneakerID" exact>
