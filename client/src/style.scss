@@ -45,10 +45,15 @@ body {
   .sidebar {
     margin: 0;
     padding: 0;
-    width: 200px;
     position: fixed;
-    height: 100%;
-    overflow: auto;
+    width: 230px;
+    max-height: calc(100vh - 6rem);
+    bottom: 0;
+    overflow-y: auto;
+
+    .sidebarCategoryTitle {
+      padding: 4px;
+    }
 
     a {
       display: block;

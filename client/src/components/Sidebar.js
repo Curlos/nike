@@ -58,7 +58,7 @@ const Sidebar = ({ handleSelectBrand, brands }) => {
 
   return (
     <div class="sidebar">
-      <div>Brands</div>
+      <div class="sidebarCategoryTitle">Brands</div>
       {ALL_BRANDS.map((brand) => {
         return (
           <a href="/">
