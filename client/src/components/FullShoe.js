@@ -8,10 +8,11 @@ const FullShoe = () => {
   const [shoe, setShoe] = useState({})
   const [isLoading, setIsLoading] = useState(true)
   const { brand, sneakerID } = useParams()
+  const SERVER_URL = 'https://sneakers-server.herokuapp.com'
 
   useEffect(() => {
 
-    axios.get(`http://localhost:3001/sneakers/shoe/${brand}/${sneakerID}`).then((response, err) => {
+    axios.get(`${SERVER_URL}/sneakers/shoe/${brand}/${sneakerID}`).then((response, err) => {
         if (err) console.error(err)
 
         setShoe(...response.data)

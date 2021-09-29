@@ -10,6 +10,7 @@ const Shoes = ({ brands, handleSearch, finalizedSearchQuery, resetFinalizedSearc
   const [shoes, setShoes] = useState([])
   const [allShoes, setAllShoes] = useState([])
   const [isLoading, setIsLoading] = useState(true)
+  const SERVER_URL = 'https://sneakers-server.herokuapp.com'
 
   console.log(shoes)
   console.log(brands)
@@ -36,7 +37,7 @@ const Shoes = ({ brands, handleSearch, finalizedSearchQuery, resetFinalizedSearc
     const fetchFromServer = async () => {
       if (finalizedSearchQuery === '') {
         if (lastFilterChange.checked === true) {
-          const response = await axios.get(`http://localhost:3001/sneakers/brands/${lastFilterChange.name.toUpperCase()}`)
+          const response = await axios.get(`${SERVER_URL}/sneakers/brands/${lastFilterChange.name.toUpperCase()}`)
           const data = response.data
           console.log(data)
           const newShoes = [...shoes]
