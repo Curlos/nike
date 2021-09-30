@@ -44,10 +44,10 @@ body {
     /* The side navigation menu */
   .sidebar {
     margin: 0;
-    padding: 0;
+    padding: 20px;
     position: fixed;
-    width: 230px;
-    max-height: calc(100vh - 6rem);
+    width: 200px;
+    max-height: calc(100vh - 9rem);
     bottom: 0;
     overflow-y: auto;
 
@@ -58,8 +58,13 @@ body {
     a {
       display: block;
       color: black;
-      padding: 4px;
+      padding: 4px 0px 4px 0px;
       text-decoration: none;
+    }
+
+    .line-separator {
+      border-bottom: 1px solid lightgray;
+      padding: 10px 0px 10px 0px;
     }
   }
 
@@ -187,22 +192,36 @@ body {
   }
 }
 
-.searchAndFilterElems {
+.shoesHeader {
   display: flex;
-  justify-content: flex-end;
+  justify-content: space-between;
   margin-right: 70px;
 
+  position: -webkit-sticky;
+  position: sticky;
+  top: 0;
+  background-color: #ffffff;
+
+  .shoesCount {
+    padding: 20px;
+    font-size: 25px;
+  }
+
+  .searchAndFilterElems {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
 
   .searchBarContainer {
     display: flex;
     justify-content: center;
-    position: relative;
   
     .searchInput {
       border: 2px solid lightgray;
       border-right: none;
-      padding: 5px;
       font-size: 16px;
+      padding: 10px;
       border-top-left-radius: 20px;
       border-bottom-left-radius: 20px;
       padding-left: 12px;
@@ -257,6 +276,7 @@ body {
       box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
       z-index: 1;
       border-radius: 20px;
+      background-color: #ffffff;
 
       div {
         color: black;
