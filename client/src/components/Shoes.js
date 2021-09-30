@@ -5,7 +5,7 @@ import SearchBar from './SearchBar'
 import Dropdown from './Dropdown'
 import axios from 'axios'
 
-const Shoes = ({ brands, handleSearch, finalizedSearchQuery, resetFinalizedSearchQuery, handleSelectShoe, handleSelectBrand, lastFilterChange, handleSort, sortType }) => {
+const Shoes = ({ brands, handleSearch, finalizedSearchQuery, resetFinalizedSearchQuery, handleSelectShoe, handleSelectBrand, lastFilterChange, clearLastFilterChange, handleSort, sortType, handleFilterChange, filters, shoeCount, handleShoeCount }) => {
 
   const [shoes, setShoes] = useState([])
   const [allShoes, setAllShoes] = useState([])
@@ -36,7 +36,7 @@ const Shoes = ({ brands, handleSearch, finalizedSearchQuery, resetFinalizedSearc
 
     const fetchFromServer = async () => {
       if (finalizedSearchQuery === '') {
-        if (lastFilterChange.checked === true) {
+        if (lastFilterChange !== '' && lastFilterChange.checked === true) {
           const response = await axios.get(`${SERVER_URL}/sneakers/brands/${lastFilterChange.name.toUpperCase()}`)
           const data = response.data
           console.log(data)
@@ -45,15 +45,42 @@ const Shoes = ({ brands, handleSearch, finalizedSearchQuery, resetFinalizedSearc
           newShoes.push(...data)
           newAllShoes.push(...data)
 
+          handleShoeCount(Object.keys(newShoes).length)
+
           setShoes(sortedShoes(newShoes))
           setAllShoes(newAllShoes)
           setIsLoading(false) 
-        } else {
+        } else if (lastFilterChange !== '' && lastFilterChange.checked === false) {
           console.log('unchecked')
           const newShoes = filterOutShoes({brand: lastFilterChange.name})
+          handleShoeCount(Object.keys(newShoes).length)
           setShoes(sortedShoes(newShoes))
           setAllShoes(newShoes)
+        } else {
+          // fetch all shoes
+          const newShoes = []
+          const newAllShoes = []
+
+          for (const brand of Object.keys(brands)) {
+            if (brands[brand].checked === true) {
+              const response = await axios.get(`${SERVER_URL}/sneakers/brands/${brands[brand].name.toUpperCase()}`)
+              const data = response.data
+              console.log(data)
+              newShoes.push(...data)
+              newAllShoes.push(...data)
+              console.log(newShoes)
+            } 
+          }
+
+          handleShoeCount(Object.keys(newShoes).length)
+
+          setShoes(sortedShoes(newShoes))
+          setAllShoes(newAllShoes)
+          setIsLoading(false)
+          console.log(newShoes)
         }
+
+        clearLastFilterChange()
       } else {
         const filters = {
           "name": finalizedSearchQuery
@@ -61,6 +88,8 @@ const Shoes = ({ brands, handleSearch, finalizedSearchQuery, resetFinalizedSearc
 
         const newShoes = filterShoes(filters)
         console.log(newShoes)
+
+        handleShoeCount(Object.keys(newShoes).length)
 
         setShoes(newShoes)
         setIsLoading(false)
@@ -147,13 +176,16 @@ const Shoes = ({ brands, handleSearch, finalizedSearchQuery, resetFinalizedSearc
   return (
 
     <div>
-      <div className="searchAndFilterElems">
-        <SearchBar handleSearch={handleSearch}/>
-        <Dropdown handleSort={handleSort}/>
+      <div className="shoesHeader">
+        <div class="shoesCount">Shoes ({shoeCount})</div>
+        <div class="searchAndFilterElems">
+          <SearchBar handleSearch={handleSearch} shoeCount={shoeCount}/>
+          <Dropdown handleSort={handleSort}/>
+        </div>
       </div>
 
       <div className="shoesPage">
-        <Sidebar handleSelectBrand={handleSelectBrand} brands={brands}/>
+        <Sidebar handleSelectBrand={handleSelectBrand} brands={brands} handleFilterChange={handleFilterChange} filters={filters}/>
 
         <div className="shoesContainer">
           {isLoading ? (

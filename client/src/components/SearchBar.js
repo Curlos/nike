@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 
-const SearchBar = ({ handleSearch }) => {
+const SearchBar = ({ handleSearch, shoeCount }) => {
 
   const [searchQuery, setSearchQuery] = useState('')
 
@@ -17,6 +17,7 @@ const SearchBar = ({ handleSearch }) => {
   }
 
   return (
+
     <form className="searchBarContainer" onSubmit={handleSubmit}>
       <input type="text" className="searchInput" value={searchQuery} onChange={handleChange}/>
       <button type="submit" onClick={handleSubmit} className="searchButton">
