@@ -92,6 +92,7 @@ const Sidebar = ({ handleSelectBrand, brands, handleFilterChange, filters }) => 
       })}
 
       <div class="line-separator"></div>
+      <div class="sidebarCategoryTitle">Prices</div>
 
       {PRICE_RANGES.map((priceRange) => {
 
@@ -102,6 +103,9 @@ const Sidebar = ({ handleSelectBrand, brands, handleFilterChange, filters }) => 
         </a>
        )
       })}
+
+      <div class="line-separator"></div>
+      <div class="sidebarCategoryTitle">Colors</div>
 
       {COLORS.map((color) => {
         return (

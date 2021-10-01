@@ -8,13 +8,15 @@ import Navbar from './components/Navbar'
 import Shoes from './components/Shoes'
 import FullShoe from './components/FullShoe'
 import Brands from './components/Brands'
+import RegisterForm from './components/RegisterForm'
+import LoginForm from './components/LoginForm'
 import './style.scss';
 
 const App = () => {
 
   const [selectedShoe, setSelectedShoe] = useState({})
   const [finalizedSearchQuery, setFinalizedSearchQuery] = useState('')
-  const [brands, setBrands] = useState({})
+  const [brands, setBrands] = useState({'Nike': {name: 'Nike', checked: true}})
   const [sortType, setSortType] = useState('Newest')
   const [shoeCount, setShoeCount] = useState(0)
   const [lastFilterChange, setLastFilterChange] = useState({})
@@ -77,7 +79,15 @@ const App = () => {
         {/* A <Switch> looks through its children <Route>s and
             renders the first one that matches the current URL. */}
         <Switch>
-        <Route path="/new-releases" exact>
+          <Route path="/register" exact>
+            <RegisterForm />
+          </Route>
+
+          <Route path="/login" exact>
+            <LoginForm />
+          </Route>
+
+          <Route path="/new-releases" exact>
             New Releases
           </Route>
           <Route path="/men" exact>

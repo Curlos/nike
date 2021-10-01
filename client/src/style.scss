@@ -39,6 +39,33 @@ body {
   }
 }
 
+.registerForm, .loginForm {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+
+  input {
+    margin: 5px;
+    width: 300px;
+    border: 1px solid lightgray;
+    border-radius: 5px;
+    padding: 10px;
+  }
+
+  input:focus {
+    outline: none;
+  }
+
+  button {
+    border: none;
+    color: #ffffff;
+    background-color: #000000;
+    padding: 10px;
+    border-radius: 5px;
+  }
+}
+
 .shoesPage {
 
     /* The side navigation menu */
@@ -64,7 +91,7 @@ body {
 
     .line-separator {
       border-bottom: 1px solid lightgray;
-      padding: 10px 0px 10px 0px;
+      margin: 10px 0px 10px 0px;
     }
   }
 
