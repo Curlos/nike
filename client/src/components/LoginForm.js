@@ -19,7 +19,7 @@ const LoginForm = () => {
       password: password
     }
 
-    const data = await axios.post(SERVER_URL + '/login', user)
+    const data = await axios.post(SERVER_URL + '/users/login', user)
     console.log(data)
   }
 

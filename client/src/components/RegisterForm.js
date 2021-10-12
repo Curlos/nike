@@ -6,6 +6,8 @@ const SERVER_URL = 'http://localhost:3001'
 
 
 const RegisterForm = () => {
+  const [firstName, setFirstName] = useState('')
+  const [lastName, setLastName] = useState('')
   const [emailAddress, setEmailAddress] = useState('')
   const [password, setPassword] = useState('')
 
@@ -16,11 +18,21 @@ const RegisterForm = () => {
 
     const newUser = {
       email: emailAddress,
-      password: password
+      password: password,
+      firstName: firstName,
+      lastName: lastName
     }
 
-    const data = await axios.post(SERVER_URL + '/register', newUser)
+    const data = await axios.post(SERVER_URL + '/users/register', newUser)
     console.log(data)
+  }
+
+  const handleFirstNameChange = (e) => {
+    setFirstName(e.target.value)
+  }
+
+  const handleLastNameChange = (e) => {
+    setLastName(e.target.value)
   }
 
   const handleEmailChange = (e) => {
@@ -33,6 +45,8 @@ const RegisterForm = () => {
 
   return (
     <form class="registerForm">
+      <input type="text" placeholder="First name" value={firstName} onChange={handleFirstNameChange}/>
+      <input type="text" placeholder="Last name" value={lastName} onChange={handleLastNameChange}/>
       <input type="email" placeholder="Email address" value={emailAddress} onChange={handleEmailChange}/>
       <input type="password" placeholder="Password" value={password} onChange={handlePasswordChange}/>
       <button onClick={handleSubmit}>SIGN UP</button>
