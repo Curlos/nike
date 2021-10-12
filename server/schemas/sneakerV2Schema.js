@@ -2,23 +2,23 @@ const mongoose = require('mongoose')
 
 const sneakerV2Schema = new mongoose.Schema(
   {
-    sneakerID: {type: String, required: true},
-    sku: {type: String, required: true},
-    brand: {type: String, required: true},
-    name: {type: String, required: true},
+    sneakerID: {type: String},
+    sku: {type: String},
+    brand: {type: String},
+    name: {type: String},
     colorway: {type: String},
-    gender: {type: String, required: true},
-    silhouette: {type: String, required: true},
-    releaseYear: {type: Number, required: true},
+    gender: {type: String},
+    silhouette: {type: String},
+    releaseYear: {type: Number},
     releaseDate: {type: String},
-    retailPrice: {type: Number, required: true},
-    estimatedMarketValue: {type: Number, required: true},
+    retailPrice: {type: Number},
+    estimatedMarketValue: {type: Number},
     story: {type: String},
     image: {
       "360": {type: Array},
-      original: {type: String, required: true},
-      small: {type: String, required: true},
-      thumbnail: {type: String, required: true},
+      original: {type: String},
+      small: {type: String},
+      thumbnail: {type: String},
     },
     links: {
       stockX: {type: String},
@@ -26,6 +26,9 @@ const sneakerV2Schema = new mongoose.Schema(
       flightClub: {type: String},
       stadiumGoods: {type: String},
     },
+    reviews: [{type: mongoose.Schema.Types.ObjectId, ref: 'Review'}],
+    rating: {type: Number},
+    favorites: {type: Number},
   }
 )
 

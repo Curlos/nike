@@ -1,6 +1,7 @@
 const express = require('express')
 const mongoose = require('mongoose')
-const sneakerSchema = require('../schemas/sneakerSchema')
+const sneakerSchema = require('../schemas/sneakerV2Schema')
+const User = require('../models/User')
 
 const router = express.Router()
 
@@ -95,6 +96,47 @@ router.get('/shoe/:brand/:sneakerID', async (req, res) => {
 
   const shoe = await Sneaker.find({ sneakerID: sneakerID })
   res.json(shoe)
+})
+
+router.put('/shoe/:brand/:sneakerID/like', async (req, res) => {
+  const brand = req.params.brand.toUpperCase()
+  const sneakerID = req.params.sneakerID
+
+  const user = await User.findOne({_id: req.body.userID})
+
+  const Sneaker = mongoose.model('Sneaker', sneakerSchema, brand)
+  const shoe = await Sneaker.findOne({ sneakerID: sneakerID })
+
+  if (req.body.action === 'increment') {
+    console.log('increment nibba')
+    shoe.favorites = shoe.favorites + 1 || 1
+    user.shoeFavorites = user.shoeFavorites && [...user.shoeFavorites, shoe._id] || [shoe._id]
+
+    console.log(user)
+  } else {
+    console.log('decrement bois')
+    shoe.favorites = shoe.favorites - 1 || 0
+    user.shoeFavorites = [...user.shoeFavorites.filter((shoeID) => {
+      console.log(shoeID)
+      console.log(shoe._id.toString())
+      console.log('-------------')
+      return (
+        shoeID !== shoe._id.toString()
+      )
+    })] || []
+  }
+
+  console.log(user)
+  console.log(user.shoeFavorites.filter((shoeID) => shoeID !== shoe._id))
+  
+  await shoe.save()
+  await user.save()
+  res.json(
+    {
+      user: user,
+      shoe: shoe
+    }
+  )
 })
 
 
