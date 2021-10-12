@@ -1,8 +1,13 @@
-import React, { } from 'react'
+import React, { } from 'react';
 import { Link } from "react-router-dom";
+import UserContext from '../contexts/UserContext';
 
 
 const Navbar = () => {
+
+  const { loggedInUser, setLoggedInUser } = React.useContext(UserContext)
+
+  console.log(loggedInUser)
 
   return (
 
@@ -37,6 +42,17 @@ const Navbar = () => {
 
               <li>
                 <Link to="/brands">Explore Brands</Link>
+              </li>
+
+              <li>
+                {loggedInUser && Object.keys(loggedInUser).length > 0 ? (
+                  <span>
+                    Hi, {loggedInUser.firstName || loggedInUser.email} 
+                    <i class="fas fa-user"></i>
+                  </span>
+                ): (
+                  <Link to="/login">Log In</Link>
+                )}
               </li>
             </div>
           </ul>

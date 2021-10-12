@@ -10,6 +10,7 @@ import FullShoe from './components/FullShoe'
 import Brands from './components/Brands'
 import RegisterForm from './components/RegisterForm'
 import LoginForm from './components/LoginForm'
+import UserContext from './contexts/UserContext';
 import './style.scss';
 
 const App = () => {
@@ -27,6 +28,7 @@ const App = () => {
 
     'name': ''
   })
+  const [loggedInUser, setLoggedInUser] = useState({})
 
   console.log(filters)
 
@@ -73,50 +75,52 @@ const App = () => {
   return (
 
     <Router>
-      <div>
-        <Navbar />
+      <UserContext.Provider value={{loggedInUser, setLoggedInUser}}>
+        <div>
+          <Navbar />
 
-        {/* A <Switch> looks through its children <Route>s and
-            renders the first one that matches the current URL. */}
-        <Switch>
-          <Route path="/register" exact>
-            <RegisterForm />
-          </Route>
+          {/* A <Switch> looks through its children <Route>s and
+              renders the first one that matches the current URL. */}
+          <Switch>
+            <Route path="/register" exact>
+              <RegisterForm />
+            </Route>
 
-          <Route path="/login" exact>
-            <LoginForm />
-          </Route>
+            <Route path="/login" exact>
+              <LoginForm />
+            </Route>
 
-          <Route path="/new-releases" exact>
-            New Releases
-          </Route>
-          <Route path="/men" exact>
-            Men
-          </Route>
-          <Route path="/women" exact>
-            Women
-          </Route>
-          <Route path="/kids" exact>
-            Kids
-          </Route>
+            <Route path="/new-releases" exact>
+              New Releases
+            </Route>
+            <Route path="/men" exact>
+              Men
+            </Route>
+            <Route path="/women" exact>
+              Women
+            </Route>
+            <Route path="/kids" exact>
+              Kids
+            </Route>
 
-          <Route path="/brands" exact>
-            <Brands />
-          </Route>
-          
-          <Route path="/shoes" exact>
-            <Shoes brands={brands} handleSearch={handleSearch} finalizedSearchQuery={finalizedSearchQuery} resetFinalizedSearchQuery={resetFinalizedSearchQuery} handleSelectShoe={handleSelectShoe} handleSelectBrand={handleSelectBrand} filters={filters} lastFilterChange={lastFilterChange} clearLastFilterChange={clearLastFilterChange} handleSort={handleSort} sortType={sortType} handleFilterChange={handleFilterChange} shoeCount={shoeCount} handleShoeCount={handleShoeCount}/>
-          </Route>
+            <Route path="/brands" exact>
+              <Brands />
+            </Route>
+            
+            <Route path="/shoes" exact>
+              <Shoes brands={brands} handleSearch={handleSearch} finalizedSearchQuery={finalizedSearchQuery} resetFinalizedSearchQuery={resetFinalizedSearchQuery} handleSelectShoe={handleSelectShoe} handleSelectBrand={handleSelectBrand} filters={filters} lastFilterChange={lastFilterChange} clearLastFilterChange={clearLastFilterChange} handleSort={handleSort} sortType={sortType} handleFilterChange={handleFilterChange} shoeCount={shoeCount} handleShoeCount={handleShoeCount}/>
+            </Route>
 
-          <Route path="/shoe/:brand/:sneakerID" exact>
-            <FullShoe shoeObj={selectedShoe.sneakerID}/>
-          </Route>
+            <Route path="/shoe/:brand/:sneakerID" exact>
+              <FullShoe shoeObj={selectedShoe.sneakerID}/>
+            </Route>
 
-          <Route path="/">
-            Home
-          </Route>
-        </Switch>
-      </div>
+            <Route path="/">
+              Home
+            </Route>
+          </Switch>
+        </div>
+      </UserContext.Provider>
     </Router>
   );
 }

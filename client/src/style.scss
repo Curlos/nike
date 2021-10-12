@@ -138,12 +138,18 @@ body {
   
   .thumbnailShoe {
     display: flex;
+    justify-content: center;
+    align-items: flex-end;
     text-align: center;
     width: 25%;
     margin: 20px;
   
     img {
       width: 100%;
+    }
+
+    .fa-heart {
+      margin-right: 5px;
     }
   }
 }
