@@ -53,8 +53,17 @@ const ThumbnailShoe = ({ shoeObj, handleSelectShoe }) => {
         <div className="price">{currShoe.retailPrice ? '$' + currShoe.retailPrice : 'Unknown Price'}</div>
       </Link>
       
-      <i class="far fa-heart" onClick={handleFavorite}></i>
-      <span>{favorites}</span>
+      {currUser.shoeFavorites && currUser.shoeFavorites.includes(currShoe._id) ? (
+        <span>
+          <i class="fas fa-heart" onClick={handleFavorite}></i>
+          <span>{favorites}</span>
+        </span>
+      ) : (
+        <span>
+          <i class="far fa-heart" onClick={handleFavorite}></i>
+          <span>{favorites}</span>
+        </span>
+      )}
     </div>
   )
 }

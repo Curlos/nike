@@ -14,6 +14,7 @@ const PORT = process.env.PORT || 8888
 const sneakersV2Router = require('./routes/sneakersV2Router')
 const saveSneakersV2Router = require('./routes/saveSneakersV2Router')
 const userRouter = require('./routes/userRouter')
+const reviewRouter = require('./routes/reviewRouter')
 const database = require('./database/connection')
 const User = require('./models/User')
 
@@ -30,6 +31,7 @@ require('./passport/config')(passport)
 app.use('/sneakers', sneakersV2Router)
 app.use('/save-sneakers-v2', saveSneakersV2Router)
 app.use('/users', userRouter)
+app.use('/reviews', reviewRouter)
 
 
 app.listen(PORT, () => {

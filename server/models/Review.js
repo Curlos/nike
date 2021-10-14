@@ -1,13 +1,14 @@
 const mongoose = require('mongoose')
 
 const Review = mongoose.model(
-  "User",
+  "Review",
   new mongoose.Schema({
-    title: { type: String, required: true},
-    stars: { type: String, required: true},
-    date: { type: Date, required: true},
+    rating: { type: String, required: true},
+    recommended: { type: String, required: true},
+    summary: { type: String, required: true},
     content: { type: String, required: true},
-    author: { type: String, required: true},
+    author: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
+    date: { type: String, required: true},
   })
 );
 

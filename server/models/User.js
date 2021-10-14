@@ -5,7 +5,7 @@ const User = mongoose.model(
   new mongoose.Schema({
     email: { type: String, required: true },
     password: { type: String, required: true },
-    reviews: [{ type: String, required: true }],
+    reviews: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Review' }],
     shoeFavorites: [{ type: String, required: true }],
     reviewUpvotes: [{ type: String, required: true }],
     reviewDownvotes: [{ type: String, required: true }],
