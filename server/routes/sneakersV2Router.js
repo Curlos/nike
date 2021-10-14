@@ -115,7 +115,11 @@ router.put('/shoe/:brand/:sneakerID/like', async (req, res) => {
     console.log(user)
   } else {
     console.log('decrement bois')
-    shoe.favorites = shoe.favorites - 1 || 0
+    if (shoe.favorites && shoe.favorites <= 0) {
+      shoe.favorites = 0
+    } else {
+      shoe.favorites = shoe.favorites - 1 || 0
+    }
     user.shoeFavorites = [...user.shoeFavorites.filter((shoeID) => {
       console.log(shoeID)
       console.log(shoe._id.toString())
