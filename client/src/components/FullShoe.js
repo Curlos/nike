@@ -2,10 +2,15 @@ import React, { useState, useEffect } from 'react'
 import { useParams } from "react-router-dom";
 import axios from 'axios'
 import SiteLink from './SiteLink'
+import ReactStars from "react-rating-stars-component";
+import UserContext from '../contexts/UserContext';
 
 const FullShoe = () => {
 
-  const [shoe, setShoe] = useState({})
+  const { loggedInUser } = React.useContext(UserContext)
+  const [currUser, setCurrUser] = useState(loggedInUser)
+  const [currShoe, setCurrShoe] = useState({})
+  const [favorites, setFavorites] = useState(currShoe.favorites || 0)
   const [isLoading, setIsLoading] = useState(true)
   const { brand, sneakerID } = useParams()
   const SERVER_URL = 'https://sneakers-server.herokuapp.com'
@@ -15,7 +20,7 @@ const FullShoe = () => {
     axios.get(`${SERVER_URL}/sneakers/shoe/${brand}/${sneakerID}`).then((response, err) => {
         if (err) console.error(err)
 
-        setShoe(...response.data)
+        setCurrShoe(...response.data)
         setIsLoading(false)
     })
 
@@ -23,69 +28,132 @@ const FullShoe = () => {
   }, [sneakerID])
 
   if (!isLoading) {
-    console.log(shoe)
+    console.log(currShoe)
   }
+
+  const ratingChanged = (newRating) => {
+    console.log(newRating);
+  };
+
+  const handleFavorite = async () => {
+    console.log(currShoe)
+
+    if (currUser && Object.keys(currUser).length > 0) {
+      console.log(currUser)
+      let favoriteAction = 'increment'
+
+      if (currUser.shoeFavorites && currUser.shoeFavorites.includes(currShoe._id)) {
+        favoriteAction = 'decrement'
+      }
+
+      const body = {
+        action: favoriteAction,
+        userID: loggedInUser._id
+      }
+
+      const response = await axios.put(`http://localhost:3001/sneakers/shoe/${currShoe.brand.toUpperCase()}/${currShoe.sneakerID}/like`, body)
+      const {user, shoe} = response.data
+      setFavorites(shoe.favorites)
+      setCurrShoe(shoe)
+      setCurrUser(user)
+
+
+      console.log(shoe)
+    }
+  }
+  
+  console.log(currShoe)
 
   return (
     <div>
       {isLoading === false ? (
         <div className="fullSizeShoeContainer">
-          <img src={shoe.image.original} alt={shoe.name} className="shoeImage"/>
+          <img src={currShoe.image.original} alt={currShoe.name} className="shoeImage"/>
 
           <div className="shoeDetails">
             <div className="shoeName">
-              {shoe.name}
+              {currShoe.name}
             </div>
 
             <div className="shoePrice">
-              Price: ${shoe.retailPrice}
+              Price: ${currShoe.retailPrice}
             </div>
 
-            {shoe.story ? (
+            <div>
+
+            </div>
+
+            {currShoe.story ? (
               <div className="shoeStory">
-                {shoe.story}
+                {currShoe.story}
               </div>
             ) : null}
 
             <div>
-              Brand: {shoe.brand}
+              Brand: {currShoe.brand}
             </div>
 
             <div>
-              Sku: {shoe.sku}
+              Sku: {currShoe.sku}
             </div>
 
             <div>
-              Release Date: {shoe.releaseDate}
+              Release Date: {currShoe.releaseDate}
             </div>
 
             <div>
-              Release Year: {shoe.releaseYear}
+              Release Year: {currShoe.releaseYear}
             </div>
 
             <div>
-              Colorway: {shoe.colorway}
+              Colorway: {currShoe.colorway}
             </div>
 
 
 
             <div className="siteLinks">
-              {shoe.links.flightClub !== '' ? (
-                <SiteLink link={shoe.links.flightClub} imgSrc="/assets/flight_club.png" />
+              {currShoe.links.flightClub !== '' ? (
+                <SiteLink link={currShoe.links.flightClub} imgSrc="/assets/flight_club.png" />
               ) : null}
 
-              {shoe.links.goat !== '' ? (
-                <SiteLink link={shoe.links.goat} imgSrc="/assets/goat.png" />
+              {currShoe.links.goat !== '' ? (
+                <SiteLink link={currShoe.links.goat} imgSrc="/assets/goat.png" />
               ) : null}
 
-              {shoe.links.stadiumGoods !== '' ? (
-                <SiteLink link={shoe.links.stadiumGoods} imgSrc="/assets/stadium_goods.svg" />
+              {currShoe.links.stadiumGoods !== '' ? (
+                <SiteLink link={currShoe.links.stadiumGoods} imgSrc="/assets/stadium_goods.svg" />
               ) : null}
 
-              {shoe.links.stockX !== '' ? (
-                <SiteLink link={shoe.links.stockX} imgSrc="/assets/stockx.jpeg" />
+              {currShoe.links.stockX !== '' ? (
+                <SiteLink link={currShoe.links.stockX} imgSrc="/assets/stockx.jpeg" />
               ) : null}
               
+            </div>
+
+            <div className="favoritesAndReviewsContainer">
+              <div class="favoritesContainer">
+                {currUser && currUser.shoeFavorites && currUser.shoeFavorites.includes(currShoe._id) ? (
+                  <span>
+                    <i class="fas fa-heart" onClick={handleFavorite}></i>
+                    <span>{currShoe.favorites}</span>
+                  </span>
+                ) : (
+                  <span>
+                    <i class="far fa-heart" onClick={handleFavorite}></i>
+                    <span>{currShoe.favorites}</span>
+                  </span>
+                )}
+              </div>
+
+              <div class="reviewsContainer">
+                <div class="reviewsText">Reviews ({currShoe.reviews.length})</div>
+                <ReactStars
+                  count={5}
+                  onChange={ratingChanged}
+                  size={24}
+                  activeColor="#ffd700"
+                /> 
+              </div>
             </div>
             
           </div>
@@ -94,25 +162,11 @@ const FullShoe = () => {
         <div>
           Loading...
 
-          Shoe: {shoe.name}
+          Shoe: {currShoe.name}
         </div>
       )}
     </div>
   )
 }
-
-/*
-
-<div>
-      {isLoading ? (
-        <div>Loading...</div>
-      ) : (
-        <div className="fullSizeShoeContainer">
-          <img src={shoe.image.original} alt={shoe.name} className="shoeImage"/>
-          <div className="shoeName">{shoe.name}</div>
-        </div>
-      )}
-    </div>
-    */
 
 export default FullShoe;

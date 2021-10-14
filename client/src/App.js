@@ -10,6 +10,8 @@ import FullShoe from './components/FullShoe'
 import Brands from './components/Brands'
 import RegisterForm from './components/RegisterForm'
 import LoginForm from './components/LoginForm'
+import LandingPage from './components/LandingPage';
+import ReviewForm from './components/ReviewForm';
 import UserContext from './contexts/UserContext';
 import './style.scss';
 
@@ -106,6 +108,14 @@ const App = () => {
             <Route path="/brands" exact>
               <Brands />
             </Route>
+
+            <Route path="/reviews/:brand/:shoeID" exact>
+              <ReviewForm />
+            </Route>
+
+            <Route path="/reviews/review/:brand/:shoeID" exact>
+              <ReviewForm />
+            </Route>
             
             <Route path="/shoes" exact>
               <Shoes brands={brands} handleSearch={handleSearch} finalizedSearchQuery={finalizedSearchQuery} resetFinalizedSearchQuery={resetFinalizedSearchQuery} handleSelectShoe={handleSelectShoe} handleSelectBrand={handleSelectBrand} filters={filters} lastFilterChange={lastFilterChange} clearLastFilterChange={clearLastFilterChange} handleSort={handleSort} sortType={sortType} handleFilterChange={handleFilterChange} shoeCount={shoeCount} handleShoeCount={handleShoeCount}/>
@@ -116,7 +126,7 @@ const App = () => {
             </Route>
 
             <Route path="/">
-              Home
+              <LandingPage />
             </Route>
           </Switch>
         </div>
