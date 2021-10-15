@@ -359,6 +359,7 @@ body {
   
     .reviewsText {
       margin-right: 10px;
+      cursor: pointer;
     }
   }
 }
@@ -470,3 +471,67 @@ body {
   }
 }
 
+.shoeReviewsContainer {
+  padding: 20px;
+
+  .shoeHeader {
+    display: flex;
+    align-items: center;
+    position: -webkit-sticky;
+    position: sticky;
+    top: 0;
+    background-color: #ffffff;
+    
+
+    img {
+      max-height: 125px;
+    }
+  }
+
+  .fa-user {
+    font-size: 20px;
+    margin-right: 10px;
+    margin-bottom: 10px;
+  }
+
+  .author {
+    font-size: 14px;
+  }
+
+  .reviewsNum {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .reviewContainer {
+
+    margin: auto 10%;
+    padding: 50px;
+    border-bottom: 1px solid gray;
+
+    .reviewContent {
+      margin-left: 35px;
+    }
+
+    .summary {
+      font-weight: 600;
+      font-size: 20px;
+    }
+
+    .reviewDate, .helpfulNumber {
+      color: gray;
+      margin: 10px auto;
+      font-size: 14px;
+    }
+
+    .helpfulButton {
+      border: 1px solid gray;
+      border-radius: 3px;
+      padding: 5px;
+      background-color: #ffffff;
+      box-shadow: 2px 2px 5px lightgray;
+    }
+
+  }
+}

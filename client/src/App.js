@@ -11,6 +11,7 @@ import Brands from './components/Brands'
 import RegisterForm from './components/RegisterForm'
 import LoginForm from './components/LoginForm'
 import LandingPage from './components/LandingPage';
+import Reviews from './components/Reviews'
 import ReviewForm from './components/ReviewForm';
 import UserContext from './contexts/UserContext';
 import './style.scss';
@@ -110,7 +111,7 @@ const App = () => {
             </Route>
 
             <Route path="/reviews/:brand/:shoeID" exact>
-              <ReviewForm />
+              <Reviews />
             </Route>
 
             <Route path="/reviews/review/:brand/:shoeID" exact>
